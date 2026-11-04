@@ -1,0 +1,9 @@
+awkward>=2.14.0,<3
+ipykernel>=7.4.0,<8
+jax>=0.12.0.1,<0.13; sys_platform != 'darwin' or platform_machine != 'x86_64'
+jupyterlab>=4.6.5,<5
+matplotlib>=3.11.2,<4
+nbclient>=0.11.0,<0.12
+nbformat>=5.11.1,<6
+numpy>=2.5.4,<3
+uproot>=5.7.7,<6
