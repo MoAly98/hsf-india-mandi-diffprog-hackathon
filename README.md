@@ -2,6 +2,31 @@
 
 This repository contains the hackathon notebook `zprime_differentiable_hackathon.ipynb`, in which you tune the selection of a Z' → ttbar search by gradient descent instead of scanning cut values by hand. The event samples it uses, skimmed from CMS Open Data, are in `data/`.
 
+## Option 0: BinderHub (no installation)
+
+Go to the url below to launch a JupyterLab session in your browser, with no GPU, 4 CPUs and 4 GB of memory, using BinderHub:
+
+```
+https://binderhub.ssl-hep.org/v2/gh/research-software-collaborations/courses-hsf-india-October2026/binder?gpuModel=&gpuCount=0&cudaMajor=undefined&cudaMinor=undefined&site=nrp&memory=4.0&cpu=4&qos=Guaranteed
+```
+
+<p align="center"><img src="https://github.com/jpivarski-talks/2024-05-22-hsf-india-tutorial-delhi/assets/1852447/9f57768b-7d3d-4b74-8364-c066fe352c39" width="75%"></p>
+
+This session comes with all dependencies pre-installed, but not with the notebook.
+To get it, bring up a terminal by pressing the "Terminal" button:
+
+<p align="center"><img src="https://github.com/jpivarski-talks/2024-05-22-hsf-india-tutorial-delhi/assets/1852447/9efd21b4-1cd7-45b7-80d0-a20bb0c36ac4" width="75%"></p>
+
+Then clone this repository in that terminal with:
+
+```shell
+git clone https://github.com/MoAly98/hsf-india-mandi-diffprog-hackathon.git
+```
+
+<p align="center"><img src="https://github.com/jpivarski-talks/2024-05-22-hsf-india-tutorial-delhi/assets/1852447/89b5625b-c1db-44f7-8ce7-774ed592580e" width="75%"></p>
+
+Now there is a `hsf-india-mandi-diffprog-hackathon` directory in the file browser that you can double-click to open the notebook.
+
 ## Option 1: MyBinder (no installation)
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MoAly98/hsf-india-mandi-diffprog-hackathon/main?urlpath=lab/tree/zprime_differentiable_hackathon.ipynb)
