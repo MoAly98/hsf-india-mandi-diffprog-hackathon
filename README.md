@@ -1,15 +1,15 @@
 # HSF-India 2026 hackathon: Differentiable Programming for HEP
 
-This repository contains the hackathon notebook `zprime_differentiable_hackathon_solution.ipynb`, in which you tune the selection of a Z' → ttbar search by gradient descent instead of scanning cut values by hand. The event samples it uses, skimmed from CMS Open Data, are in `data/`.
+This repository contains the hackathon notebook `zprime_differentiable_hackathon.ipynb`, in which you tune the selection of a Z' → ttbar search by gradient descent instead of scanning cut values by hand. The event samples it uses, skimmed from CMS Open Data, are in `data/`.
 
 ## Option 1: MyBinder (no installation)
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MoAly98/hsf-india-mandi-diffprog-hackathon/main?urlpath=lab/tree/zprime_differentiable_hackathon_solution.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MoAly98/hsf-india-mandi-diffprog-hackathon/main?urlpath=lab/tree/zprime_differentiable_hackathon.ipynb)
 
 Click on the Binder badge above or go to the url below to launch a JupyterLab session in your browser with the notebook and all dependencies pre-installed using MyBinder:
 
 ```
-https://mybinder.org/v2/gh/MoAly98/hsf-india-mandi-diffprog-hackathon/main?urlpath=lab/tree/zprime_differentiable_hackathon_solution.ipynb
+https://mybinder.org/v2/gh/MoAly98/hsf-india-mandi-diffprog-hackathon/main?urlpath=lab/tree/zprime_differentiable_hackathon.ipynb
 ```
 
 ## Option 2: run locally with `pixi`
