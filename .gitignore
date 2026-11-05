@@ -222,5 +222,15 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Solution notebook stays local only
-zprime_differentiable_hackathon_solution.ipynb
+# Solution notebooks stay local only
+solutions/
+
+# skim outputs
+data/nanoaod/
+
+# local scratch notebooks
+_local/
+
+# Large local data: NanoAOD skims come from BinderHub/CERNBox, not git
+data/nanoaod/
+nanoaod_skims.zip
