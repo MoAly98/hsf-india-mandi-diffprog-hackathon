@@ -1,6 +1,29 @@
 # HSF-India 2026 hackathon: Differentiable Programming for HEP
 
-This repository contains the hackathon notebook `zprime_differentiable_hackathon.ipynb`, in which you tune the selection of a Z' → ttbar search by gradient descent instead of scanning cut values by hand. The event samples it uses, skimmed from CMS Open Data, are in `data/`.
+This repository contains the hackathon notebooks, in which you tune the selection of a Z' → ttbar search by gradient descent instead of scanning cut values by hand, on samples skimmed from CMS Open Data.
+
+## The notebooks
+
+Work through them in order:
+
+1. **`zprime_differentiable_hackathon.ipynb`**: the core idea on easy data. The input is a small pre-made flat table (`data/simple/`, one npz file per sample) with three variables per event. You learn the whole differentiable-analysis trick in its simplest form: why hard cuts have no gradient, soft cuts and soft histograms (bKDE), gradient ascent, optimising several cuts at once, and the honest train/test evaluation. The statistics is a simple s/√b, and the signal is scaled up so every effect is clearly visible.
+
+2. **`zprime_nanoaod_hackathon.ipynb`**: the same search, done like a real analysis. The input is 18 million skimmed CMS Open Data NanoAOD events (`data/nanoaod/`, jagged per-object arrays): you build the flat table yourself with `uproot` and `awkward` (object masks, structural cuts, four-vectors, padding). New physics content: the full set of hard→soft transformations, including cuts that *count* objects above a tunable threshold, a neural network pretrained as a classifier and then fine-tuned inside the analysis against the physics objective, and one systematic uncertainty (jet energy scale). The signal carries its real cross-section, so expect honest, small significances.
+
+## The data
+
+The part-1 npz tables (`data/simple/`) are small and ship with this repository, so there is nothing to do.
+
+The part-2 NanoAOD skims (`data/nanoaod/`, a few GB) are distributed separately:
+
+- **During the hackathon (2–6 November)**, for people using BinderHub as in Option 0 below, they are already available under `data/mandi26/diffprog-hack`.
+- **After the school**, download them from CERNBox:
+
+```
+https://cernbox.cern.ch/s/g1NTIeLDrMUxNPX
+```
+
+Place them so that `data/nanoaod/` sits at the top of the repository, next to `data/simple/`.
 
 ## Option 0: BinderHub (no installation)
 
