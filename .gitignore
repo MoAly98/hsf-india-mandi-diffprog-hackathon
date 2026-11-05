@@ -230,7 +230,3 @@ data/nanoaod/
 
 # local scratch notebooks
 _local/
-
-# Large local data: NanoAOD skims come from BinderHub/CERNBox, not git
-data/nanoaod/
-nanoaod_skims.zip
