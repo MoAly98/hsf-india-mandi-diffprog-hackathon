@@ -17,8 +17,10 @@ or on an explicit input like apply-preselection.py:
 
 import argparse
 import json
+import os
 import sys
 import time
+from collections import deque
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
 from pathlib import Path
 
@@ -104,32 +106,53 @@ def skim_file(input_path, output_path, is_mc, chunk_workers):
             f"{input_path}[{start}:{stop}]",
         )
 
+    # Written under a temporary name and renamed only once every chunk
+    # succeeded, so an interrupted skim never leaves a truncated file that
+    # the resume check in main() would count as already done.
+    part_path = f"{output_path}.part"
     output = None
     output_tree = None
     branch_types = {}
     n_out = 0
 
-    with ThreadPoolExecutor(max_workers=chunk_workers) as pool:
-        futures = [pool.submit(read_chunk, *b) for b in bounds]
-        for future in futures:
-            arrays = future.result()
+    # Chunk reads run through a bounded window of in-flight futures: the
+    # writer consumes the oldest one (preserving output order) and drops it,
+    # so written chunks are freed instead of staying referenced until the
+    # whole file is done.
+    window = chunk_workers + 2
+    try:
+        with ThreadPoolExecutor(max_workers=chunk_workers) as pool:
+            queued = deque(bounds)
+            in_flight = deque()
+            while queued and len(in_flight) < window:
+                in_flight.append(pool.submit(read_chunk, *queued.popleft()))
+            while in_flight:
+                arrays = in_flight.popleft().result()
+                if queued:
+                    in_flight.append(pool.submit(read_chunk, *queued.popleft()))
 
-            if output is None:
-                output = uproot.recreate(output_path)
-                for branch in arrays.fields:
-                    if isinstance(arrays[branch], ak.Array):
-                        branch_types[branch] = arrays[branch].type
-                    else:
-                        branch_types[branch] = np.dtype(arrays[branch].dtype)
-                output_tree = output.mktree(TREE_NAME, branch_types)
+                if output is None:
+                    output = uproot.recreate(part_path)
+                    for branch in arrays.fields:
+                        if isinstance(arrays[branch], ak.Array):
+                            branch_types[branch] = arrays[branch].type
+                        else:
+                            branch_types[branch] = np.dtype(arrays[branch].dtype)
+                    output_tree = output.mktree(TREE_NAME, branch_types)
 
-            if len(arrays) == 0:
-                continue
-            output_tree.extend({b: arrays[b] for b in branch_types})
-            n_out += len(arrays)
+                if len(arrays) == 0:
+                    continue
+                output_tree.extend({b: arrays[b] for b in branch_types})
+                n_out += len(arrays)
+    except BaseException:
+        if output is not None:
+            output.close()
+        Path(part_path).unlink(missing_ok=True)
+        raise
 
     if output is not None:
         output.close()
+        os.replace(part_path, output_path)
     return input_path, n_entries, n_out, time.perf_counter() - t0
 
 
