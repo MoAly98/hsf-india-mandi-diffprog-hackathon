@@ -222,11 +222,6 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Solution notebooks stay local only
-solutions/
-
 # skim outputs
 data/nanoaod/
 
-# local scratch notebooks
-_local/
